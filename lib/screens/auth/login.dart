@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:petsansar_admin/exports.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -10,7 +11,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  bool _showPassword = false;
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+   bool _isSyncing = false;
+
+  bool _showPassword = true;
   void _togglevisibility() {
     setState(() {
       _showPassword = !_showPassword;
@@ -32,7 +36,14 @@ class _LoginState extends State<Login> {
 }
   TextEditingController emailController =  TextEditingController();
   TextEditingController passwordController =  TextEditingController();
-
+final AuthService authService = AuthService();
+ void loginUser() {
+    authService.signInUser(
+      context: context,
+      email: emailController.text,
+      password: passwordController.text,
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,44 +77,88 @@ class _LoginState extends State<Login> {
             child: Padding(
               padding: EdgeInsets.all(16),
               child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    ///***If you have exported images you must have to copy those images in assets/images directory.
-                    Image(
-                      image: NetworkImage(
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoSL4WHG5Ypv4e4W58d5Gt4PnBEM_kZQDDhAKjZAOYLBy6V1karPn2SMil6DFkjUUeX7M&usqp=CAU"),
-                      height: 100,
-                      width: 100,
-                      fit: BoxFit.cover,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Admin Login",
-                          textAlign: TextAlign.start,
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 22,
-                            color: Color(0xff000000),
+                child: Form(
+                   key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      ///***If you have exported images you must have to copy those images in assets/images directory.
+                      Image(
+                        image: NetworkImage(
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoSL4WHG5Ypv4e4W58d5Gt4PnBEM_kZQDDhAKjZAOYLBy6V1karPn2SMil6DFkjUUeX7M&usqp=CAU"),
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.cover,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Admin Login",
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.clip,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 22,
+                              color: Color(0xff000000),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 16, horizontal: 0),
-                      child: TextFormField(
-                        controller: emailController,
-                        obscureText: false,
-                        validator: validateEmail,
-                        textAlign: TextAlign.left,
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 16, horizontal: 0),
+                        child: TextFormField(
+                          controller: emailController,
+                          obscureText: false,
+                          validator: validateEmail,
+                          textAlign: TextAlign.left,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 14,
+                            color: Color(0xff000000),
+                          ),
+                          decoration: InputDecoration(
+                            disabledBorder: UnderlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide:
+                                  BorderSide(color: Color(0xff000000), width: 1),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide:
+                                  BorderSide(color: Color(0xff000000), width: 1),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide:
+                                  BorderSide(color: Color(0xff000000), width: 1),
+                            ),
+                            hintText: "Enter Email",
+                            hintStyle: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 14,
+                              color: Color(0xff494646),
+                            ),
+                            filled: true,
+                            fillColor: Color(0xffffffff),
+                            isDense: false,
+                            contentPadding: EdgeInsets.all(0),
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: passwordController,
+                        
+                        obscureText: _showPassword,
+                        textAlign: TextAlign.start,
                         maxLines: 1,
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
@@ -112,6 +167,14 @@ class _LoginState extends State<Login> {
                           color: Color(0xff000000),
                         ),
                         decoration: InputDecoration(
+                          suffixIcon: GestureDetector(
+                                      onTap: () {
+                                        _togglevisibility();
+                                      },
+                                      child: Icon(
+                                        _showPassword ? Icons.visibility : Icons
+                                            .visibility_off, color: Colors.red,),
+                                  ),
                           disabledBorder: UnderlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
                             borderSide:
@@ -127,7 +190,7 @@ class _LoginState extends State<Login> {
                             borderSide:
                                 BorderSide(color: Color(0xff000000), width: 1),
                           ),
-                          hintText: "Enter Email",
+                          hintText: "Enter Password",
                           hintStyle: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.normal,
@@ -140,96 +203,56 @@ class _LoginState extends State<Login> {
                           contentPadding: EdgeInsets.all(0),
                         ),
                       ),
-                    ),
-                    TextFormField(
-                      controller: passwordController,
-                      
-                      obscureText: false,
-                      textAlign: TextAlign.start,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 14,
-                        color: Color(0xff000000),
-                      ),
-                      decoration: InputDecoration(
-                        suffixIcon: GestureDetector(
-                                    onTap: () {
-                                      _togglevisibility();
-                                    },
-                                    child: Icon(
-                                      _showPassword ? Icons.visibility : Icons
-                                          .visibility_off, color: Colors.red,),
-                                ),
-                        disabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide:
-                              BorderSide(color: Color(0xff000000), width: 1),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide:
-                              BorderSide(color: Color(0xff000000), width: 1),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide:
-                              BorderSide(color: Color(0xff000000), width: 1),
-                        ),
-                        hintText: "Enter Password",
-                        hintStyle: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 14,
-                          color: Color(0xff494646),
-                        ),
-                        filled: true,
-                        fillColor: Color(0xffffffff),
-                        isDense: false,
-                        contentPadding: EdgeInsets.all(0),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0, 16, 0, 30),
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          "Forgot Password?",
-                          textAlign: TextAlign.start,
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 14,
-                            color: Color(0xff3a57e8),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 16, 0, 30),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            "Forgot Password?",
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.clip,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 14,
+                              color: Color(0xff3a57e8),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    MaterialButton(
-                      onPressed: () {
-                        
-                      },
-                      color: Color(0xff3a57e8),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      padding: EdgeInsets.all(16),
-                      textColor: Color(0xffffffff),
-                      height: 40,
-                      minWidth: MediaQuery.of(context).size.width,
-                      child: Text(
-                        "Login",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          fontStyle: FontStyle.normal,
+                      
+                      MaterialButton(
+                        onPressed: () {
+                          final FormState? form =
+                                              _formKey.currentState;
+
+                                          if (form!.validate()) {
+                                            setState(() {
+                                              _isSyncing = true;
+                                            });
+                                            loginUser();
+                                          }
+                        },
+                        color: Color(0xff3a57e8),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        padding: EdgeInsets.all(16),
+                        textColor: Color(0xffffffff),
+                        height: 40,
+                        minWidth: MediaQuery.of(context).size.width,
+                        child: _isSyncing ? const CircularProgressIndicator() : Text(
+                          "Login",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            fontStyle: FontStyle.normal,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

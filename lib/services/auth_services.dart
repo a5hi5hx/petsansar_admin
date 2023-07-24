@@ -34,11 +34,10 @@ await prefs.setString('x-auth-token', response.data['token']);
  prefs.setString('phone', response.data['phoneNumber']);
 prefs.setString('image', response.data['image']);
 prefs.setString('name', response.data['name']);
- navigator.pushAndRemoveUntil(
+ navigator.pushReplacement(
             MaterialPageRoute(
               builder: (context) => HomePage(),
             ),
-            (route) => false,
           );
 }
     }on DioException catch (e) {

@@ -1,2 +1,3 @@
 export './auth/export.dart';
-export './home/homepage.dart';
+export './home/export.dart';
+export './add/exports.dart';

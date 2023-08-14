@@ -26,7 +26,7 @@ class _AddProductPageState extends State<AddProductPage> {
   
   List<Map<String, dynamic>> categories = [];
   String? selectedItemId = 'Choose One';
-
+bool _isSync = false;
   String selectedItem = '';
   List<File?> selectedImages = [];
 
@@ -63,6 +63,9 @@ class _AddProductPageState extends State<AddProductPage> {
   }
 
   void _submitForm() async {
+    setState(() {
+      _isSync = true;
+    });
         if (_formKey.currentState!.validate() && selectedImages.length >= 2) {
 
 String keywordsInput = keywordsController.text.trim();
@@ -100,6 +103,9 @@ String keywordsInput = keywordsController.text.trim();
           actions: [
             TextButton(
               onPressed: () {
+                 setState(() {
+      _isSync = false;
+    });
                 Navigator.pop(context); // Closes the dialog
               },
               child: Text("OK"),
@@ -108,6 +114,7 @@ String keywordsInput = keywordsController.text.trim();
         );
       },
     );
+    
         } else {
           showDialog(
       context: context,
@@ -118,6 +125,9 @@ String keywordsInput = keywordsController.text.trim();
           actions: [
             TextButton(
               onPressed: () {
+                 setState(() {
+      _isSync = false;
+    });
                 Navigator.pop(context); // Closes the dialog
               },
               child: Text("OK"),
@@ -129,6 +139,9 @@ String keywordsInput = keywordsController.text.trim();
           // Handle server errors
         }
       } catch (e) {
+         setState(() {
+      _isSync = false;
+    });
         // Handle Dio errors
         print(e);
       }
@@ -142,6 +155,9 @@ String keywordsInput = keywordsController.text.trim();
           actions: [
             TextButton(
               onPressed: () {
+                 setState(() {
+      _isSync = false;
+    });
                 Navigator.pop(context); // Closes the dialog
               },
               child: Text("OK"),
@@ -196,6 +212,8 @@ String keywordsInput = keywordsController.text.trim();
                 },
               ),
               TextFormField(
+                keyboardType: TextInputType.multiline,
+  maxLines: null,
                 controller: descriptionController,
                 decoration: InputDecoration(labelText: 'Description'),
                 validator: (value) {
@@ -282,7 +300,7 @@ String keywordsInput = keywordsController.text.trim();
                       .toList(),
                 ),
               SizedBox(height: 20),
-              ElevatedButton(
+              _isSync ? Center(child: CircularProgressIndicator(color: Colors.red,)) : ElevatedButton(
                 onPressed: _submitForm,
                 child: Text('Add Product'),
               ),

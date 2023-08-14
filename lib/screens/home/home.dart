@@ -24,7 +24,7 @@ class _AdminHomeState extends State<AdminHome> {
         child: ListView(
           padding: const EdgeInsets.all(0),
           children: [
-            const DrawerHeader(
+             DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.green,
               ), //BoxDecoration
@@ -34,57 +34,21 @@ class _AdminHomeState extends State<AdminHome> {
                   "Pet Sansar Admin",
                   style: TextStyle(fontSize: 18),
                 ),
-                accountEmail: Text("adoptmenepal@gmail.com"),
+                accountEmail: Text("petsansarnepal@gmail.com"),
                 currentAccountPictureSize: Size.square(50),
                 currentAccountPicture: CircleAvatar(
+                  radius: 45.0,
                   backgroundColor: Color.fromARGB(255, 165, 255, 137),
-                  child: Text(
-                    "A",
-                    style: TextStyle(fontSize: 30.0, color: Colors.blue),
-                  ), //Text
+                  child: Image.asset('assets/Logo.png', height: 150, width: 117, fit: BoxFit.contain,),
                 ), //circleAvatar
               ), //UserAccountDrawerHeader
             ), //DrawerHeader
-            ListTile(
-              leading: const Icon(Icons.person),
-              title: const Text(' My Profile '),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.book),
-              title: const Text(' My Course '),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.workspace_premium),
-              title: const Text(' Go Premium '),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.video_label),
-              title: const Text(' Saved Videos '),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.edit),
-              title: const Text(' Edit Profile '),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
+           
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('LogOut'),
               onTap: () {
-                Navigator.pop(context);
+                signOutUser(context);
               },
             ),
           ],
@@ -109,40 +73,40 @@ class _AdminHomeState extends State<AdminHome> {
           ),
         ),
         
-        actions: [
-          //buttons
-        //   Icon(Icons.add, color: Color(0xffffffff), size: 30),
-        //  const SizedBox(width: 15),
-          IconButton(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  // onPressed: () => obj.signOutUser(context),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text('Logout'),
-                        content: Text('Confirm LogOut'),
-                        actions: [
-                          ElevatedButton(
-                              onPressed: () => signOutUser(context),
-                              child: Text('Confirm')),
-                          ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text('Go Back'))
-                        ],
-                      ),
-                    );
-                  },
-                  icon: Icon(
-                    Icons.logout,
-                    size: 24,
-                  ),
-                ),
-                         const SizedBox(width: 15),
+        // actions: [
+        //   //buttons
+        // //   Icon(Icons.add, color: Color(0xffffffff), size: 30),
+        // //  const SizedBox(width: 15),
+        //   IconButton(
+        //           color: Color.fromARGB(255, 255, 255, 255),
+        //           // onPressed: () => obj.signOutUser(context),
+        //           onPressed: () {
+        //             showDialog(
+        //               context: context,
+        //               builder: (context) => AlertDialog(
+        //                 title: Text('Logout'),
+        //                 content: Text('Confirm LogOut'),
+        //                 actions: [
+        //                   ElevatedButton(
+        //                       onPressed: () => signOutUser(context),
+        //                       child: Text('Confirm')),
+        //                   ElevatedButton(
+        //                       onPressed: () {
+        //                         Navigator.pop(context);
+        //                       },
+        //                       child: Text('Go Back'))
+        //                 ],
+        //               ),
+        //             );
+        //           },
+        //           icon: Icon(
+        //             Icons.logout,
+        //             size: 24,
+        //           ),
+        //         ),
+        //                  const SizedBox(width: 15),
 
-        ],
+        // ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -205,12 +169,7 @@ class _AdminHomeState extends State<AdminHome> {
                     const  SizedBox(width: 120,),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 5, 20, 5),
-                      child: Image(
-                          image: NetworkImage("https://picsum.photos/250?image=9"),
-                          height: 130,
-                          width: 115,
-                          fit: BoxFit.contain,
-                        ),
+                      child: Image.asset('assets/Logo.png', height: 150, width: 117, fit: BoxFit.contain,)
                     ),
                   ],
                 ),
@@ -388,19 +347,19 @@ class _AdminHomeState extends State<AdminHome> {
                     ),
                   ),
                 ),
-                GestureDetector(
+             GestureDetector(
                   onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => AddScrollDataScreen()));
+                                         Navigator.push(context, MaterialPageRoute(builder: (_) => AddScrollDataScreen()));
 
                   },
                   child: Card(
                     margin: EdgeInsets.all(4.0),
-                    color: Color.fromARGB(255, 20, 14, 184),
+                    color: Color.fromARGB(255, 58, 13, 90),
                     shadowColor: Color(0xff000000),
                     elevation: 1,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4.0),
-                      side: BorderSide(color: Color(0x4d9e9e9e), width: 1),
+                      side: BorderSide(color: Color.fromARGB(77, 218, 137, 14), width: 1),
                     ),
                     child: Stack(
                       alignment: Alignment.bottomCenter,
@@ -410,9 +369,10 @@ class _AdminHomeState extends State<AdminHome> {
                           child: IconButton(
                             icon: Icon(Icons.image),
                             onPressed: () {
-                             Navigator.push(context, MaterialPageRoute(builder: (_) => AddScrollDataScreen()));
+                                                   Navigator.push(context, MaterialPageRoute(builder: (_) => CategoryListPage()));
+
                             },
-                            color: Color.fromARGB(255, 165, 173, 175),
+                            color: Color.fromARGB(255, 162, 218, 227),
                             iconSize: 100,
                           ),
                         ),
@@ -421,51 +381,7 @@ class _AdminHomeState extends State<AdminHome> {
                           child: Align(
                             alignment: Alignment.topCenter,
                             child: Text(
-                              'Add Scroll View',
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontStyle: FontStyle.normal,
-                                fontSize: 18,
-                                color: Color(0xffffffff),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Card(
-                    margin: EdgeInsets.all(4.0),
-                    color: Color(0xffc03636),
-                    shadowColor: Color(0xff000000),
-                    elevation: 1,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      side: BorderSide(color: Color(0x4d9e9e9e), width: 1),
-                    ),
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
-                          child: IconButton(
-                            icon: Icon(Icons.add_shopping_cart),
-                            onPressed: () {},
-                            color: Color(0xff212435),
-                            iconSize: 100,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(5),
-                          child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Text(
-                              "Add Items",
+                              "Scroll View",
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -481,11 +397,14 @@ class _AdminHomeState extends State<AdminHome> {
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {},
+               GestureDetector(
+                  onTap: () {
+                                         Navigator.push(context, MaterialPageRoute(builder: (_) => CategoryListPage()));
+
+                  },
                   child: Card(
                     margin: EdgeInsets.all(4.0),
-                    color: Color(0xffc03636),
+                    color: Color.fromARGB(255, 7, 73, 19),
                     shadowColor: Color(0xff000000),
                     elevation: 1,
                     shape: RoundedRectangleBorder(
@@ -498,9 +417,12 @@ class _AdminHomeState extends State<AdminHome> {
                         Padding(
                           padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
                           child: IconButton(
-                            icon: Icon(Icons.add_shopping_cart),
-                            onPressed: () {},
-                            color: Color(0xff212435),
+                            icon: Icon(Icons.inventory),
+                            onPressed: () {
+                                        //           Navigator.push(context, MaterialPageRoute(builder: (_) => CategoryListPage()));
+
+                            },
+                            color: Color.fromARGB(255, 162, 218, 227),
                             iconSize: 100,
                           ),
                         ),
@@ -509,7 +431,57 @@ class _AdminHomeState extends State<AdminHome> {
                           child: Align(
                             alignment: Alignment.topCenter,
                             child: Text(
-                              "Add Items",
+                              "Inventory",
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontStyle: FontStyle.normal,
+                                fontSize: 26,
+                                color: Color(0xffffffff),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+               GestureDetector(
+                  onTap: () {
+                                   //      Navigator.push(context, MaterialPageRoute(builder: (_) => CategoryListPage()));
+
+                  },
+                  child: Card(
+                    margin: EdgeInsets.all(4.0),
+                    color: Color.fromARGB(255, 115, 16, 16),
+                    shadowColor: Color(0xff000000),
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                      side: BorderSide(color: Color(0x4d9e9e9e), width: 1),
+                    ),
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
+                          child: IconButton(
+                            icon: Icon(Icons.notifications),
+                            onPressed: () {
+                                                   Navigator.push(context, MaterialPageRoute(builder: (_) => CategoryListPage()));
+
+                            },
+                            color: Color.fromARGB(255, 162, 218, 227),
+                            iconSize: 100,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Text(
+                              "Notifications",
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(

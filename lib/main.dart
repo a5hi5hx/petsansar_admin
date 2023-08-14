@@ -66,7 +66,7 @@ bool _isSync = true;
       debugShowCheckedModeBanner: false,
       home: _isSync ? Container(decoration: BoxDecoration(color: Colors.white),child: Center(child: CircularProgressIndicator( color: Colors.red,))) : checkLogin
           ? AdminHome()
-          : Login(),
+          : AdminHome(),
     );
   } 
 }

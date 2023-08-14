@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dev.ashish.petsansar_admin">
    <application
-        android:label="petsansar_admin"
+        android:label="Admin Pet Sansar"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
